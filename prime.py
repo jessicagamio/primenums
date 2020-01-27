@@ -1,3 +1,5 @@
+import unittest
+
 
 ### find prime number function
 
@@ -12,16 +14,29 @@
             # return False
 # return True
 def isPrime(num):
-    count = 1
-    for item in range(1,9):
-        if item == 1 or item == 2 or item % 2 != 0:
-            if num % item == 0:
-                count += 1
-            if count > 1:
-                return False
-    return True
-
     """returns True if a prime number and False if NOT a prime number"""
+
+    # can only result from multiplie by itself and 1
+    # can only be odd number exclude 2
+    # can not be negative numbers
+    if num <= 0:
+        return False
+
+    if num == 1 or num == 2:
+        return True
+
+    elif num % 2 != 0: # if odd number
+        for item in range(2,9):
+            if item == 2 or item % 2 != 0 and item != num:
+                if num % item == 0:
+                    return False
+        return True
+
+
+
+
+
+
 #################
 
 
@@ -61,6 +76,9 @@ def makePrimeList(list, birthdate):
     primelist = []
     digit = getDigit(birthdate)
 
+    if isPrime(digit) == False:
+        return "2nd digit not a prime number"
+
     if list == []:
         return 0
 
@@ -69,3 +87,12 @@ def makePrimeList(list, birthdate):
             primelist.append(num)
 
     return primelist
+
+
+class testFunction (unittest.TestCase):
+    def testMethod(self):
+        self.assertEqual(makePrimeList([2,3,57,3], 13032019),[3,3])
+
+
+if __name__=="__main__":
+    unittest.main()
